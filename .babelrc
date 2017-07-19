@@ -3,5 +3,17 @@
     "next/babel",
     "stage-0",
     "es2017"
-  ]
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "inline-dotenv"
+      ]
+    },
+    "production": {
+      "plugins": [
+        "transform-inline-environment-variables"
+      ]
+    }
+  }
 }
