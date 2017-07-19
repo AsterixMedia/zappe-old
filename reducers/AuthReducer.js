@@ -5,7 +5,7 @@ import {
   USER_LOGIN_FAIL
 } from '../actions/types'
 
-const INIITAL_STATE = {
+const INITIAL_STATE = {
   access_token: '',
   expires_in: 0,
   refresh_token: '',
@@ -15,16 +15,16 @@ const INIITAL_STATE = {
   error: ''
 }
 
-export default (state = INIITAL_STATE, action) => {
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case USER_LOGIN:
       return { ...state, loading: true }
     case USER_LOGIN_FINALIZE:
-      return { ...INIITAL_STATE, access_token: action.token }
+      return { ...INITIAL_STATE, access_token: action.token }
     case USER_LOGIN_SUCCESS:
-      return { ...INIITAL_STATE, ...action.response }
+      return { ...INITIAL_STATE, ...action.response }
     case USER_LOGIN_FAIL:
-      return { ...INIITAL_STATE, error: action.error }
+      return { ...INITIAL_STATE, error: action.error }
     default:
       return state
   }

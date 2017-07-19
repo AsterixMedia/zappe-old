@@ -10,11 +10,11 @@ import {
 // TODO: RESET auth info after debugging
 const loginConstants = {
   responseType: 'code',
-  clientId: 'do2uls6u4m8mdwt5pwzu5009r48y42mt',
-  clientSecret: 'Na4GQL9DPWA9lHJM8DgwiLRMKv1NUAuj',
-  authURL: 'https://account.box.com/api/oauth2/authorize',
-  tokenURL: 'https://api.box.com/oauth2/token',
-  redirectUri: 'http://localhost:3000/login/box'
+  clientId: process.env.BOX_ID,
+  clientSecret: process.env.BOX_SECRET,
+  authURL: process.env.BOX_AUTH_URL,
+  tokenURL: process.env.BOX_TOKEN_URL,
+  redirectUri: process.env.BOX_REDIRECT
 }
 
 const { responseType, clientId, clientSecret, authURL, redirectUri, tokenURL } = loginConstants
