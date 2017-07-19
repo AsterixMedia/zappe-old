@@ -17,15 +17,6 @@ const loginConstants = {
   redirectUri: 'http://localhost:3000/login/box'
 }
 
-/*
-curl https://api.box.com/oauth2/token \
--d 'grant_type=authorization_code' \
--d 'code=LLXocvuRfWkzBkUkjGlnKUJTa6l7n81f' \
--d 'client_id=4fgvc5rrm80lmhi0lwgqywb43159b775' \
--d 'client_secret=LEZen03gnTrJhLOenE9LSj6EX5qgft4E' \
--X POST
-*/
-
 const { responseType, clientId, clientSecret, authURL, redirectUri, tokenURL } = loginConstants
 
 export const userLogin = () => {
@@ -36,8 +27,8 @@ export const userLogin = () => {
     'redirect_uri': redirectUri
   })
 
-  return dispath => {
-    dispath({ type: USER_LOGIN })
+  return dispatch => {
+    dispatch({ type: USER_LOGIN })
     window.location.replace(url)
   }
 }
@@ -56,9 +47,9 @@ export const userLoginFinalize = (token) => {
           }
         })
       .then(response => response.data)
-      .then(respose => {
-        console.log(respose)
-        dispatch({ type: USER_LOGIN_SUCCESS, respose })
+      .then(response => {
+        console.log(response)
+        dispatch({ type: USER_LOGIN_SUCCESS, response })
       })
       .catch(error => dispatch({ type: USER_LOGIN_FAIL, error }))
   }
