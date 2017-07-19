@@ -6,8 +6,8 @@ import {
 } from '../actions/types'
 
 const INIITAL_STATE = {
-  authorization: {},
   accessToken: '',
+  response: {},
   loading: false,
   error: ''
 }
@@ -19,7 +19,7 @@ export default (state = INIITAL_STATE, action) => {
     case USER_LOGIN_FINALIZE:
       return { ...INIITAL_STATE, accessToken: action.token }
     case USER_LOGIN_SUCCESS:
-      return { ...INIITAL_STATE, authorization: action.response }
+      return { ...state, reponse: action.response }
     case USER_LOGIN_FAIL:
       return { ...INIITAL_STATE, error: action.error }
     default:

@@ -10,10 +10,13 @@ class BoxLoginLoadingPage extends React.Component {
   componentDidMount = () => {
     console.log(this.props.url)
     if (this.props.url.query.code) {
-      this.userLoginFinalize(this.props.url.query.code)
+      this.props.userLoginFinalize(this.props.url.query.code)
     }
   }
-  render = () => <DefaultLayout><h1>Success</h1></DefaultLayout>
+  render = () =>
+    <DefaultLayout>
+      <h1>Success</h1>
+    </DefaultLayout>
 }
 
 const mapDispatchToProps = dispatch => ({
