@@ -2,7 +2,7 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import withRedux from 'next-redux-wrapper'
 import PropTypes from 'prop-types'
-import Button from 'material-ui/Button'
+import { Button } from 'rebass'
 
 import { initStore } from '../configs/store'
 import { toggleTest } from '../actions'
@@ -16,7 +16,7 @@ const IndexPage = props =>
       {': '}
       {props.test.works ? <span>True</span> : <span>False</span>}
     </h3>
-    <Button onClick={props.testToggle}>Test</Button>
+    <Button onClick={props.testToggle} children='Test' />
   </DefaultLayout>
 
 IndexPage.propTypes = {

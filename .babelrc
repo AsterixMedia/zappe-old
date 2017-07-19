@@ -4,6 +4,16 @@
     "stage-0",
     "es2017"
   ],
+  "plugins": [
+    [
+      "styled-components",
+      {
+        "ssr": true,
+        "displayName": true,
+        "preprocess": false
+      }
+    ]
+  ],
   "env": {
     "development": {
       "plugins": [

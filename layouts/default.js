@@ -1,15 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
-import App from './app'
+import { Provider } from 'rebass'
 
 const DefaultLayout = ({children}) =>
-  <App>
+  <Provider>
     <div>
-      <h1>Minerva</h1>
+      <h1>Zappe</h1>
       {children}
     </div>
-  </App>
+  </Provider>
 
 DefaultLayout.propTypes = {
   children: PropTypes.node
