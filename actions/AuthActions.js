@@ -26,8 +26,7 @@ const {
   clientId,
   clientSecret,
   redirectUri,
-  tokenURL,
-  authURL
+  tokenURL
 } = loginConstants
 
 const time = new Date()
@@ -90,40 +89,14 @@ export const userLoginStatusCheck = () => {
   }
 }
 
-export const userLogout = () => {
-  return (dispatch, getState) => {
-    const { access_token, refresh_token } = getState().auth
-    console.log('token', refresh_token)
-    const data = `client_id=${clientId}&client_secret=${clientSecret}&token=${refresh_token}`
-    console.log(data)
-    axios
-      .post('https://api.box.com/oauth2/revoke', data, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-          'Authorization': `bearer ${access_token}`
-        }
-      })
-      .then(() => {
-        console.log('Logout success')
-        dispatch({ type: USER_LOGOUT })
-      })
-      .catch(error => console.error(error))
-    window.fetch(`https://api.box.com/oauth2/revoke`, {
-      method: 'POST',
-      body: data,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'Authorization': `bearer ${access_token}`
-      }
-    }).then(() => {
-      console.log('Logout success')
-      dispatch({type: USER_LOGOUT})
-    }).catch(error => console.error(error))
-  }
+export const userLogout = () => dispatch => {
+  window.localStorage.removeItem('zappe:authUser')
+  dispatch({ type: USER_LOGOUT })
+  Router.push('/')
 }
 
 /*
-  TODO: Add proper sign out option
   TODO: Figure out refreshing token strategy
   TODO: Handle login error better
+  TODO: Add proper sign out option (current implmentation is a bad hack :/ )
 */
