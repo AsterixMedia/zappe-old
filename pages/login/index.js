@@ -7,15 +7,16 @@ import DefaultLayout from '../../layouts/default'
 import { initStore } from '../../configs/store'
 import { userLogin } from '../../actions'
 
+const mapDispatchToProps = dispatch => ({
+  loginUser: bindActionCreators(userLogin, dispatch)
+})
+
 const LoginPage = ({loginUser}) =>
   <DefaultLayout>
     <h1>Login</h1>
     <Button onClick={loginUser}>Login w/ Box</Button>
   </DefaultLayout>
 
-const mapDispatchToProps = dispatch => ({
-  loginUser: bindActionCreators(userLogin, dispatch)
-})
 export default withRedux(
   initStore,
   null,

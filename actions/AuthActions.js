@@ -8,7 +8,8 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FINALIZE,
   USER_LOGIN_SUCCESS_REFRESH,
-  USER_LOGIN_FAIL
+  USER_LOGIN_FAIL,
+  USER_LOGOUT
 } from './types'
 
 const loginConstants = {
@@ -24,16 +25,16 @@ const {
   responseType,
   clientId,
   clientSecret,
-  authURL,
   redirectUri,
-  tokenURL
+  tokenURL,
+  authURL
 } = loginConstants
 
 const time = new Date()
 console.log(time.getTime())
 
 export const userLogin = () => {
-  const url = urlParams.generate(authURL, {
+  const url = urlParams.generate(process.env.BOX_AUTH_URL, {
     'response_type': responseType,
     'client_id': clientId,
     'redirect_uri': redirectUri
@@ -89,7 +90,40 @@ export const userLoginStatusCheck = () => {
   }
 }
 
-// TODO: Save auth token in local storage & setup secured routes -  Done
-// TODO: Handle login error better
-// TODO: Figure out refreshing token strategy
-// TODO: Add proper sign out option
+export const userLogout = () => {
+  return (dispatch, getState) => {
+    const { access_token, refresh_token } = getState().auth
+    console.log('token', refresh_token)
+    const data = `client_id=${clientId}&client_secret=${clientSecret}&token=${refresh_token}`
+    console.log(data)
+    axios
+      .post('https://api.box.com/oauth2/revoke', data, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+          'Authorization': `bearer ${access_token}`
+        }
+      })
+      .then(() => {
+        console.log('Logout success')
+        dispatch({ type: USER_LOGOUT })
+      })
+      .catch(error => console.error(error))
+    window.fetch(`https://api.box.com/oauth2/revoke`, {
+      method: 'POST',
+      body: data,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Authorization': `bearer ${access_token}`
+      }
+    }).then(() => {
+      console.log('Logout success')
+      dispatch({type: USER_LOGOUT})
+    }).catch(error => console.error(error))
+  }
+}
+
+/*
+  TODO: Add proper sign out option
+  TODO: Figure out refreshing token strategy
+  TODO: Handle login error better
+*/

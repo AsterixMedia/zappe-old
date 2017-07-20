@@ -2,6 +2,7 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import withRedux from 'next-redux-wrapper'
 import PropTypes from 'prop-types'
+import Router from 'next/router'
 import { Button } from 'rebass'
 
 import { initStore } from '../configs/store'
@@ -17,6 +18,7 @@ const IndexPage = props =>
       {props.test.works ? <span>True</span> : <span>False</span>}
     </h3>
     <Button onClick={props.testToggle} children='Test' />
+    <Button onClick={() => Router.push('/')} children='Go to login' />
   </DefaultLayout>
 
 IndexPage.propTypes = {
