@@ -1,4 +1,9 @@
 {
   "parser": "babel-eslint",
-  "extends": ["standard", "standard-react"]
+  "extends": ["standard", "standard-react"],
+  "globals": {
+    "process": true,
+    "windows": true,
+    "console": true
+  }
 }

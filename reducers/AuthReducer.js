@@ -2,7 +2,8 @@ import {
   USER_LOGIN,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FINALIZE,
-  USER_LOGIN_FAIL
+  USER_LOGIN_FAIL,
+  USER_LOGIN_SUCCESS_REFRESH
 } from '../actions/types'
 
 const INITIAL_STATE = {
@@ -12,7 +13,10 @@ const INITIAL_STATE = {
   restricted_to: [],
   token_type: '',
   loading: false,
-  error: ''
+  error: '',
+  loggedIn: false,
+  expires_at: 0,
+  vendor: 'box'
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -22,7 +26,14 @@ export default (state = INITIAL_STATE, action) => {
     case USER_LOGIN_FINALIZE:
       return { ...INITIAL_STATE, access_token: action.token }
     case USER_LOGIN_SUCCESS:
-      return { ...INITIAL_STATE, ...action.response }
+      return {
+        ...INITIAL_STATE,
+        loggedIn: true,
+        ...action.response,
+        expires_at: new Date().getTime() + action.response.expires_in
+      }
+    case USER_LOGIN_SUCCESS_REFRESH:
+      return { ...state, ...action.payload }
     case USER_LOGIN_FAIL:
       return { ...INITIAL_STATE, error: action.error }
     default:

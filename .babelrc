@@ -5,6 +5,7 @@
     "es2017"
   ],
   "plugins": [
+    "transform-decorators-legacy",
     [
       "styled-components",
       {
